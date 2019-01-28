@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "94119253965",
+    "firebase_url": "https://rise-spoken.firebaseio.com",
+    "project_id": "rise-spoken",
+    "storage_bucket": "rise-spoken.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94119253965:android:ad180c6f4b08ae1a",
+        "android_client_info": {
+          "package_name": "com.example.rise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94119253965-kfsirvg5blo5pf7aaf72iubbelnj0h9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rise",
+            "certificate_hash": "06ea45b10eaf66c9a868477116ab423d19e61425"
+          }
+        },
+        {
+          "client_id": "94119253965-gde29bmakm0a98hvjoodkjvh2s6jdu9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0aklwd_D-n6DQROHiaimsaClrail7Rr0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94119253965-gde29bmakm0a98hvjoodkjvh2s6jdu9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
