@@ -33,15 +33,34 @@ class AuthService {
     loading.add(true);
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    FirebaseUser user = await _auth.signInWithGoogle(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    FirebaseUser user = await _auth.signInWithGoogle( accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
     updateUserData(user);
     print("signed in " + user.displayName);
-
     loading.add(false);
     return user;
   }
+
+  Future<String> normalSignIn(String email, String password) async {
+    loading.add(true);
+    // FirebaseUser user ;
+    try {
+    FirebaseUser user = await _auth.signInWithEmailAndPassword(email: email,password: password).then((user){
+      updateUserData(user);
+      print(user.toString());
+      print("signed in " + user.email);
+      loading.add(false);
+      return user;
+    });
+    return "sucess";   
+    } catch (e) {
+      return e.message;
+    }
+    
+  }
+
+
+
 
   void updateUserData(FirebaseUser user) async {
     DocumentReference ref = _db.collection('users').document(user.uid);
@@ -49,8 +68,8 @@ class AuthService {
     return ref.setData({
       'uid': user.uid,
       'email': user.email,
-      'photoURL': user.photoUrl,
-      'displayName': user.displayName,
+      'photoURL': user.photoUrl ?? "google",
+      'displayName': user.displayName ?? user.email,
       'lastSeen': DateTime.now()
     }, merge: true);
   }
