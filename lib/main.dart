@@ -58,18 +58,6 @@ class LoginButton extends StatelessWidget {
   }
 }
 
-class NormalSignInFields extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text("data"),
-        ],
-      ),
-    );
-  }
-}
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key key}) : super(key: key);
@@ -121,22 +109,24 @@ class _SignupPageState extends State<SignupPage> {
                   });
                 },
             ),
-            StreamBuilder(
-              stream: authService.profile,
-              builder: (context, snapshot) {
-                return Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text(snapshot.data.toString()),
-                    ),
-                    // Text(
-                    //   authService.loading.listen((onData)=>onData),
-                    // ),
-                  ],
-                );
-              },
-            ),
+
+            // StreamBuilder(
+            //   stream: authService.profile,
+            //   builder: (context, snapshot) {
+            //     return Column(
+            //       children: <Widget>[
+            //         Container(
+            //           padding: EdgeInsets.all(20),
+            //           child: Text(snapshot.data.toString()),
+            //         ),
+            //         // Text(
+            //         //   authService.loading.listen((onData)=>onData),
+            //         // ),
+            //       ],
+            //     );
+            //   },
+            // ),
+            UserProfile(auth: authService,),
             LoginButton(),
           ],
         ),
