@@ -1,26 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:rise/src/services/auth_service.dart';
 
-import 'package:rise/src/pages/homepage/home_page.dart';
-import 'package:rise/src/pages/login/login.dart';
-import 'package:rise/src/pages/signup/signup.dart';
+void main() => runApp(MyApp());
 
-
-void main() => runApp(RiseApp());
-
-class RiseApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RISE - Learning English',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      title: 'FlutterBase',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Flutterbase'),
+          backgroundColor: Colors.amber,
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[LoginButton(), UserProfile()],
+          ),
+        ),
       ),
-      home: HomePage(),
-      routes: <String, WidgetBuilder> { 
-        '/login_page': (BuildContext context) => new LoginPage(),
-        '/signup_page' : (BuildContext context) => new SignUpPage()
-      },
     );
   }
 }
 
+class UserProfile extends StatefulWidget {
+  @override
+  UserProfileState createState() => UserProfileState();
+}
+
+class UserProfileState extends State<UserProfile> {
+  Map<String, dynamic> _profile;
+  bool _loading = false;
+
+  @override
+  initState() {
+    super.initState();
+    authService.profile.listen((state) => setState(() => _profile = state));
+
+    authService.loading.listen((state) => setState(() => _loading = state));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Container(padding: EdgeInsets.all(20), child: Text(_profile.toString())),
+      Text(_loading.toString())
+    ]);
+  }
+}
+
+class LoginButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: authService.user,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MaterialButton(
+              onPressed: () => authService.signOut(),
+              color: Colors.red,
+              textColor: Colors.white,
+              child: Text('Signout'),
+            );
+          } else {
+            return MaterialButton(
+              onPressed: () => authService.googleSignIn(),
+              color: Colors.white,
+              textColor: Colors.black,
+              child: Text('Login with Google'),
+            );
+          }
+        });
+  }
+}
