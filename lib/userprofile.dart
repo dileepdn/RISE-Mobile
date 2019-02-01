@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:rise/src/services/auth_service.dart';
+import 'package:rise/src/services/auth_provider.dart';
+
 
 class UserProfile extends StatefulWidget {
-  final AuthService auth;
+  // final AuthService auth;
 
-  UserProfile({this.auth});
+  // UserProfile({this.auth});
 
   @override
   UserProfileState createState() => UserProfileState();
@@ -13,8 +15,10 @@ class UserProfile extends StatefulWidget {
 class UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
+    final auth = AuthProvider.of(context);
+
     return StreamBuilder(
-      stream: widget.auth.user,
+      stream: auth.user,
       builder: (context, snapshot) {
         return Column(
           children: <Widget>[

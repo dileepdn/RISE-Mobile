@@ -80,4 +80,4 @@ class AuthService {
 }
 
 // TODO refactor global to InheritedWidget
-final AuthService authService = AuthService();
+// final AuthService authService = AuthService();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rise/src/services/auth_service.dart';
+import 'package:rise/src/services/auth_provider.dart';
 import 'userprofile.dart';
 
 void main() => runApp(MyApp());
@@ -25,17 +26,21 @@ class MyApp extends StatelessWidget {
     //         ],
     //       ),),
     // );
-
-    return MaterialApp(
-      title: "Flutter Rise App",
-      home: SignupPage(),
+    // final authService = AuthProvider.of(context);
+    return AuthProvider(
+          child: MaterialApp(
+        title: "Flutter Rise App",
+        home: SignupPage(),
+      ),
     );
   }
 }
 
 class LoginButton extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    final AuthService authService = AuthProvider.of(context);
     return StreamBuilder(
         stream: authService.user,
         builder: (context, snapshot) {
@@ -73,6 +78,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = AuthProvider.of(context);
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
@@ -103,7 +109,6 @@ class _SignupPageState extends State<SignupPage> {
                 elevation: 7.0,
                 onPressed: () {
                   print("$_email :: $_password");
-                  String use;
                   authService.normalSignIn(_email, _password).then((msg){
                     _showsnakbar(msg);
                   });
@@ -126,7 +131,7 @@ class _SignupPageState extends State<SignupPage> {
             //     );
             //   },
             // ),
-            UserProfile(auth: authService,),
+            UserProfile(),
             LoginButton(),
           ],
         ),
